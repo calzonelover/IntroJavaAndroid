@@ -21,6 +21,9 @@ public class MyMain{
         // Override test
         System.out.println("!! Test overriding function !!");
         cir.displayInfo();
+        System.out.println("\n");
+        // Test overloading
+        System.out.println("! Test silly overloading !");
         cir.displayInfo("Blaaa");
     }
 }

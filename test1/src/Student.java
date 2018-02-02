@@ -1,3 +1,7 @@
+// Tips :
+// if write static
+// static variable gets memory only once in class area at the time of class loading.
+
 public class Student {
     /// has private, public, protected(almost use when inherit)
     private String _sid;
