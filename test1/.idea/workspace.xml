@@ -27,7 +27,7 @@
           <file leaf-file-name="TwoDimensionShape.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/TwoDimensionShape.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="31">
+                <state relative-caret-position="24">
                   <caret line="74" column="5" lean-forward="true" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
                   <folding>
                     <element signature="e#141#142#0" expanded="true" />
@@ -72,7 +72,7 @@
           <file leaf-file-name="MyMain.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/MyMain.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-713">
+                <state relative-caret-position="300">
                   <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
                   <folding>
                     <element signature="e#0#2909#0" expanded="true" />
@@ -585,7 +585,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MyMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-713">
+        <state relative-caret-position="300">
           <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
           <folding>
             <element signature="e#0#2909#0" expanded="true" />
@@ -595,7 +595,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TwoDimensionShape.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31">
+        <state relative-caret-position="24">
           <caret line="74" column="5" lean-forward="true" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
           <folding>
             <element signature="e#141#142#0" expanded="true" />
