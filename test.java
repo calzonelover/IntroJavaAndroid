@@ -116,27 +116,11 @@ class Student extends Person{
 	public String getStartDate(){
 		return this._startDate;
 	}
-	public String get(){
-		return this.
+	public String getFaculty(){
+		return this._faculty;
+	}
+	public String getMajor(){
+		return this._major;
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

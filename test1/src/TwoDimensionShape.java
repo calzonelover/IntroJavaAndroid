@@ -11,6 +11,10 @@ public class TwoDimensionShape{
     public String getColor(){
         return this._color;
     }
+    // Overriding method in parent
+    public void displayInfo(){
+        System.out.printf("Color is :%s ", this._color);
+    }
 }
 
 class Circle extends TwoDimensionShape{
@@ -32,6 +36,17 @@ class Circle extends TwoDimensionShape{
     }
     public double getDiameter(){
         return 2.0*this._radius;
+    }
+    // For override technique
+    public void displayInfo(){
+        super.displayInfo(); // Override from parent
+        System.out.printf("Area : %f ", getArea());
+        System.out.printf("Peimeter : %f ", getPerimeter());
+    }
+    public void displayInfo(String s){
+        super.displayInfo();
+        System.out.printf("Input : %s ", s);
+        System.out.printf("Area %f Perimeter %f", getArea(), getPerimeter());
     }
 }
 

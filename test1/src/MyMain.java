@@ -18,6 +18,10 @@ public class MyMain{
         System.out.printf("Circle Area = %f , Color is %s , Perimeter = %f\n",cir.getArea(), cir.getColor(), cir.getPerimeter());
         System.out.printf("Triangle Area = %f , Color is %s , Perimeter = %f \n",tri.getArea(), tri.getColor(), tri.getPerimeter());
         System.out.printf("Rectangle Area = %f , Color is %s , Perimeter = %f \n",rec.getArea(), rec.getColor(), rec.getPerimeter());
+        // Override test
+        System.out.println("!! Test overriding function !!");
+        cir.displayInfo();
+        cir.displayInfo("Blaaa");
     }
 }
 
