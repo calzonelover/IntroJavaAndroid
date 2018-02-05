@@ -3,18 +3,18 @@
 public class MyMain{
     public static void main(String[] args){
         // Example of declare object from class
-        TwoD c = new Circle();
+        TwoD c;
         TwoD r;
         c = new Circle("black",10);
         r = new Rectangle(2,4);
 
         // Check session
 
-        System.out.printf("%f",c.getArea());
+        System.out.printf("Circle area = %f\n",c.getArea());
         // Check info function
-
-        c.displayInfo();
-
-
+        displayInfo(c);
+    }
+    public static void displayInfo(TwoD shape){
+        System.out.printf("Color : %s , Area : %f , Perimeter : %f ", shape.getColor(), shape.getArea(), shape.getPerimeter());
     }
 }
