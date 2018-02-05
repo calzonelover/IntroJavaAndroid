@@ -12,7 +12,13 @@ public class MyMain{
 
         System.out.printf("Circle area = %f\n",c.getArea());
         // Check info function
+        /// There is two ways to displayInfo
+        // test general method in main
+        System.out.println("!! Test general method in main !!");
         displayInfo(c);
+        // test method display in TwoD class
+        System.out.println("\n!! Test method display in class !!");
+        c.displayInfo();
     }
     public static void displayInfo(TwoD shape){
         System.out.printf("Color : %s , Area : %f , Perimeter : %f ", shape.getColor(), shape.getArea(), shape.getPerimeter());
