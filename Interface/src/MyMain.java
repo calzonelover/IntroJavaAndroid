@@ -1,6 +1,8 @@
 public class MyMain {
     public static void main(String[] args){
 
+
+
 //        // EX Main 1 :  Test Radio class
 //        Radio myRadio = new Radio();
 //
@@ -10,10 +12,9 @@ public class MyMain {
 //        myRadio.decreaseVolumn(2);
 //        // check
 //
-//        // -----
-//        IChannel myChannel = (IChannel)myRadio;
-//
-//        myChannel.nextChannel();
+//        // *** Tips to make module "directly connect" to Object ???? Confuse sus sus
+//        IChannel myChannel1 = (IChannel)myRadio;
+//        myChannel1.nextChannel();
 
 
 
@@ -27,12 +28,12 @@ public class MyMain {
 
 
 
-        // EX Main 3 : test Notebook class
-        Notebook myNotebook = new Notebook();
-        myNotebook.increaseVolumn(5);
-        myNotebook.decreaseVolumn(2);
-        myNotebook.connectNetwork();
-        myNotebook.disconnectNetwork();
+//        // EX Main 3 : test Notebook class
+//        Notebook myNotebook = new Notebook();
+//        myNotebook.increaseVolumn(5);
+//        myNotebook.decreaseVolumn(2);
+//        myNotebook.connectNetwork();
+//        myNotebook.disconnectNetwork();
 
 
 //        // EX Main 4 : test TV1 class (extended from Radio)

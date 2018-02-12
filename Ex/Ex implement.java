@@ -23,8 +23,8 @@ class Radio implements IVolume, IChanel {
       public void previousChangel() {         ...     } 
  }
 
-
-
-
+/// Tips : Variable in interface need to be a "public" and "final" due to we dont want to change it anymore
+/// Optional : if you not declare 
+/// Interface ; 1) 
 
 
