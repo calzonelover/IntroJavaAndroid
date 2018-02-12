@@ -1,4 +1,4 @@
-public class Robot extends Member implements Communicate {
+public class Robot extends Member{
     private int _serialNO;
     private String _model;
     private String _location;

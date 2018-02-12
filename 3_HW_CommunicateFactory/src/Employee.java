@@ -1,4 +1,4 @@
-public class Employee extends Member implements Communicate{
+public class Employee extends Member{
     private int _CID;
     private String _name;
     private String _location;
