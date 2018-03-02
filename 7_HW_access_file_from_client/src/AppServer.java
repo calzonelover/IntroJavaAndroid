@@ -38,30 +38,10 @@ public class AppServer extends Thread {
                 /// Acces file from client
                 // Read File A
                 if (myReadData.equals("read FileA")){
-                    try {
-                        Path file = Paths.get("/Users/jab/Desktop/Java/7_HW_access_file_from_client/FileA.txt");
-                        BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
-                        String line = null;
-                        while ((line = reader.readLine()) != null) {
-                            myDataOutputStream.writeUTF(line);
-                        }
-                        myDataOutputStream.flush();
-                    } catch (IOException e){
-                        System.out.println("App Server :: IOException : " + e.getMessage());
-                    }
+                    readFileA(myDataOutputStream);
                 } // Read File B
                 else if (myReadData.equals("read FileB")){
-                    try {
-                        Path file = Paths.get("/Users/jab/Desktop/Java/7_HW_access_file_from_client/FileB.txt");
-                        BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
-                        String line = null;
-                        while ((line = reader.readLine()) != null) {
-                            myDataOutputStream.writeUTF(line);
-                        }
-                        myDataOutputStream.flush();
-                    } catch (IOException e){
-                        System.out.println("App Server :: IOException : " + e.getMessage());
-                    }
+                    readFileB(myDataOutputStream);
                 } // Exit
                 else if (myReadData.equals("exit")){
                     break;
@@ -83,38 +63,30 @@ public class AppServer extends Thread {
         }
     }
     //// RETURN STRING METHOD
-    public void readFileA(){
+    public void readFileA(DataOutputStream myDataOutputStream){
         try {
             Path file = Paths.get("/Users/jab/Desktop/Java/7_HW_access_file_from_client/FileA.txt");
             BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
             String line = null;
-
-            DataOutputStream myDataOutputStream = new DataOutputStream(this._socket.getOutputStream());
-
             while ((line = reader.readLine()) != null) {
                 myDataOutputStream.writeUTF(line);
-                myDataOutputStream.flush();
             }
-            myDataOutputStream.close();
-        } catch (IOException e) {
-            System.err.println("IOExceprion: "+e.getMessage());
+            myDataOutputStream.flush();
+        } catch (IOException e){
+            System.out.println("App Server :: IOException : " + e.getMessage());
         }
     }
-    public void readFileB(){
+    public void readFileB(DataOutputStream myDataOutputStream){
         try {
             Path file = Paths.get("/Users/jab/Desktop/Java/7_HW_access_file_from_client/FileB.txt");
             BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
             String line = null;
-
-            DataOutputStream myDataOutputStream = new DataOutputStream(this._socket.getOutputStream());
-
             while ((line = reader.readLine()) != null) {
                 myDataOutputStream.writeUTF(line);
-                myDataOutputStream.flush();
             }
-            myDataOutputStream.close();
-        } catch (IOException e) {
-            System.err.println("IOExceprion: "+e.getMessage());
+            myDataOutputStream.flush();
+        } catch (IOException e){
+            System.out.println("App Server :: IOException : " + e.getMessage());
         }
     }
 
