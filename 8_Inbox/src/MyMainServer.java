@@ -1,8 +1,10 @@
 import java.util.*;
 
 public class MyMainServer {
+
+    // Ex 1
     public static void main(String[] args){
-        // declare onject
+        // declare object
         Inbox myInbox = new Inbox();
 
         // mylines array
@@ -18,6 +20,6 @@ public class MyMainServer {
         myLines.add("you !");
         myLines.add("dumpass !!!");
         /// write myLines
-        myInbox.OpenForWrite(myLines);
+        myInbox.OpenForWrite(myLines); // *** Note that we write in "out.txt" (differ file from read)
     }
 }
