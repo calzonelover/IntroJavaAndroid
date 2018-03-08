@@ -1,4 +1,6 @@
+import javax.xml.crypto.Data;
 import java.io.*;
+import java.util.*;
 import java.net.Socket;
 
 public class AppClient {
@@ -34,8 +36,10 @@ public class AppClient {
                 myDataOutputStream.writeUTF(myWriteData);
                 myDataOutputStream.flush();
 
-                // check command read
+                /// check command read
                 checkRead(myDataInputStream, myWriteData);
+
+                /// check command write letter
 
             }
 
@@ -53,9 +57,11 @@ public class AppClient {
     // method checkRead
     public void checkRead(DataInputStream myDataInputStream, String myWriteData){
         String myReadData;
-        myWriteData+="         ";
+        myWriteData+="             ";
         try {
-            if (myWriteData.substring(0, 9).equals("read File")) {
+            if (myWriteData.substring(0, 9).equals("read File")
+                    || myWriteData.substring(0,10).equals("readLetter")
+                    || myWriteData.substring(0,6).equals("letter")) {
                 while (!(myReadData = myDataInputStream.readUTF()).equals("done")) {
                     System.out.println("Server says: " + myReadData);
                 }
