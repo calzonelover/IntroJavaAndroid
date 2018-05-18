@@ -39,12 +39,16 @@ public class AppServer extends Thread {
                 } // Read File B
                 else if (myReadData.equals("read FileB")){
                     readFileB(myDataOutputStream);
-                } // Exit
+                } //Read File C
+                else if (myReadData.equals("read FileC")){
+                    readFileC(myDataOutputStream);
+                }
+                // Exit
                 else if (myReadData.equals("exit")){
                     break;
                 }
             }
-            myDataOutputStream.writeUTF("Good bye ");
+            myDataOutputStream.writeUTF("Bye");
             myDataOutputStream.flush();
             myDataOutputStream.close();
             this._socket.close();
@@ -80,6 +84,20 @@ public class AppServer extends Thread {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 myDataOutputStream.writeUTF("File B :"+ line);
+            }
+            myDataOutputStream.writeUTF("done");
+            myDataOutputStream.flush();
+        } catch (IOException e){
+            System.out.println("App Server :: IOException : " + e.getMessage());
+        }
+    }
+    public void readFileC(DataOutputStream myDataOutputStream){
+        try {
+            Path file = Paths.get("/Users/jab/Desktop/Java/7_HW_access_file_from_client/FileC.txt");
+            BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                myDataOutputStream.writeUTF("File C :"+line);
             }
             myDataOutputStream.writeUTF("done");
             myDataOutputStream.flush();

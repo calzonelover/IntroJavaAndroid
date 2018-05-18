@@ -4,12 +4,15 @@ import android.Manifest;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Debug;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-
+/// try
+import android.text.Html;
+import android.graphics.Typeface;
 
 /// was downloaded in App (gandle) file
 import com.google.android.gms.common.ConnectionResult;
@@ -18,22 +21,29 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-
 public class MainActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private TextView mTextViewLatitude;
     private TextView mTextViewLongitude;
+    /// for weather
+    TextView cityField, updatedField, detailsField, currentTemperatureField, humidity_field, weatherIcon;
+    Typeface weatherFont;
     private double mLastLatitude = 0;
     private double mLastLongitude = 0;
     private final int MY_PERMISSION_REQUEST_READ_FINE_LOCATION = 0;
     private final int MY_PERMISSION_REQUEST_READ_COARSE_LOCATION = 1;
     // waiting time
-    private final int TIME_UPDATE = 1000;// 1seconds
+    private final int TIME_UPDATE = 1000;// milliseconds
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        weatherFont = Typeface.createFromAsset(getApplicationContext().getAssets()
+                , "fonts/weathericons-regular-webfont.ttf");
+        //////////////////////////////////
+        /// Longtitude Latitude Google ///
+        //////////////////////////////////
         mTextViewLatitude = (TextView)findViewById(R.id.textViewLatitude);
         mTextViewLongitude = (TextView)findViewById(R.id.textViewLongitude);
         // Append text
@@ -58,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(mCallback)
                 .addOnConnectionFailedListener(mOnFailed).build();
+
     }
     private GoogleApiClient.ConnectionCallbacks mCallback =
             new GoogleApiClient.ConnectionCallbacks() {
@@ -94,11 +105,40 @@ public class MainActivity extends AppCompatActivity {
             double longitude = location.getLongitude();
 
             if (latitude != mLastLatitude && longitude != mLastLongitude) {
-                mTextViewLatitude.append("\n" + latitude);
-                mTextViewLongitude.append("\n" + longitude);
+                mTextViewLatitude.setText(Double.toString(latitude));
+                mTextViewLongitude.setText(Double.toString(longitude));
+//                mTextViewLatitude.append("\n" + latitude);
+//                mTextViewLongitude.append("\n" + longitude);
                 mLastLatitude = latitude;
                 mLastLongitude = longitude;
+                //////////////////////////////////
+                ///       Weather API          ///
+                //////////////////////////////////
+                cityField = (TextView)findViewById(R.id.textCity);
+                updatedField = (TextView)findViewById(R.id.textViewUpdated);
+                detailsField = (TextView)findViewById(R.id.details_field);
+                currentTemperatureField = (TextView)findViewById(R.id.textTemp);
+                humidity_field = (TextView)findViewById(R.id.textHumid);
+//        TextView pressure_field = (TextView)findViewById(R.id.pressure_field);
+                weatherIcon = (TextView)findViewById(R.id.weather_icon);
+                weatherIcon.setTypeface(weatherFont);
+                Weather.placeIdTask asyncTask = new Weather.placeIdTask(new Weather.AsyncResponse() {
+                    public void processFinish(String weather_city, String weather_description, String weather_temperature
+                            , String weather_humidity, String weather_pressure, String weather_updatedOn
+                            , String weather_iconText, String sun_rise) {
+                        cityField.setText(weather_city);
+                        updatedField.setText(weather_updatedOn);
+                        detailsField.setText(weather_description);
+                        currentTemperatureField.setText(weather_temperature);
+                        humidity_field.setText("Humidity: "+weather_humidity);
+//                pressure_field.setText("Pressure: "+weather_pressure);
+                weatherIcon.setText(Html.fromHtml(weather_iconText));
+                    }
+                });
+                asyncTask.execute(Double.toString(mLastLatitude)
+                        , Double.toString(mLastLongitude)); // asyncTask.execute("Latitude", "Longitude")
             }
+
         }
     };
     @Override
@@ -136,12 +176,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-//public class MainActivity extends AppCompatActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//    }
-//}

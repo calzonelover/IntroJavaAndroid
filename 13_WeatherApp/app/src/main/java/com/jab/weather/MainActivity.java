@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 //                weatherIcon.setText(Html.fromHtml(weather_iconText));
             }
         });
-        asyncTask.execute("13.75", "100.52"); // asyncTask.execute("Latitude", "Longitude")
+        //asyncTask.execute("13.75", "100.52"); // asyncTask.execute("Latitude", "Longitude")
+        asyncTask.execute("13.7652647", "100.5254666");
 
     }
 }

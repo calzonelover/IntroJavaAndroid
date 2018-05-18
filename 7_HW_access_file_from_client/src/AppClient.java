@@ -43,6 +43,11 @@ public class AppClient {
             this._socket.close();
 
             System.out.printf("App Client ---> Finish! \n");
+            System.out.printf("================== \n" +
+                    "           1) read FileA \n" +
+                    "           2) read FileB \n" +
+                    "           3) read FileC \n" +
+                    "          ==================");
         }
         catch (IOException e) {
             System.out.println("App Client :: IOException : " + e.getMessage());
