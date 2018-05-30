@@ -10,6 +10,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Button;
+import android.widget.Toast;
+// for button event call
+import android.view.View;
 /// try
 import android.text.Html;
 import android.graphics.Typeface;
@@ -28,12 +32,13 @@ public class MainActivity extends AppCompatActivity {
     /// for weather
     TextView cityField, updatedField, detailsField, currentTemperatureField, humidity_field, weatherIcon;
     Typeface weatherFont;
+    Button refreshButton;
     private double mLastLatitude = 0;
     private double mLastLongitude = 0;
     private final int MY_PERMISSION_REQUEST_READ_FINE_LOCATION = 0;
     private final int MY_PERMISSION_REQUEST_READ_COARSE_LOCATION = 1;
     // waiting time
-    private final int TIME_UPDATE = 1000;// milliseconds
+    private int TIME_UPDATE = 3600000;// milliseconds
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +73,42 @@ public class MainActivity extends AppCompatActivity {
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(mCallback)
                 .addOnConnectionFailedListener(mOnFailed).build();
-
+        /// Set refresh button for launch refreshWeather method
+        refreshButton = (Button) findViewById(R.id.refreshButton);
+        refreshButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                TIME_UPDATE = 100;
+                // update location
+                LocationRequest request = new LocationRequest()
+                        .setInterval(TIME_UPDATE)
+                        .setFastestInterval(TIME_UPDATE)
+                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                try {
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                            request, mLocationListener);
+                }
+                catch(SecurityException ex) {
+// Do nothing.
+                    mTextViewLatitude.append("\n" + ex.getMessage());
+                }
+                // toast show
+                Toast.makeText(getApplicationContext(),"Refreshed",Toast.LENGTH_SHORT).show();
+                TIME_UPDATE = 3600000;
+                LocationRequest request2 = new LocationRequest()
+                        .setInterval(TIME_UPDATE)
+                        .setFastestInterval(TIME_UPDATE)
+                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                try {
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                            request2, mLocationListener);
+                }
+                catch(SecurityException ex) {
+// Do nothing.
+                    mTextViewLatitude.append("\n" + ex.getMessage());
+                }
+            }
+        });
     }
     private GoogleApiClient.ConnectionCallbacks mCallback =
             new GoogleApiClient.ConnectionCallbacks() {
@@ -107,38 +147,11 @@ public class MainActivity extends AppCompatActivity {
             if (latitude != mLastLatitude && longitude != mLastLongitude) {
                 mTextViewLatitude.setText(Double.toString(latitude));
                 mTextViewLongitude.setText(Double.toString(longitude));
-//                mTextViewLatitude.append("\n" + latitude);
-//                mTextViewLongitude.append("\n" + longitude);
                 mLastLatitude = latitude;
                 mLastLongitude = longitude;
-                //////////////////////////////////
-                ///       Weather API          ///
-                //////////////////////////////////
-                cityField = (TextView)findViewById(R.id.textCity);
-                updatedField = (TextView)findViewById(R.id.textViewUpdated);
-                detailsField = (TextView)findViewById(R.id.details_field);
-                currentTemperatureField = (TextView)findViewById(R.id.textTemp);
-                humidity_field = (TextView)findViewById(R.id.textHumid);
-//        TextView pressure_field = (TextView)findViewById(R.id.pressure_field);
-                weatherIcon = (TextView)findViewById(R.id.weather_icon);
-                weatherIcon.setTypeface(weatherFont);
-                Weather.placeIdTask asyncTask = new Weather.placeIdTask(new Weather.AsyncResponse() {
-                    public void processFinish(String weather_city, String weather_description, String weather_temperature
-                            , String weather_humidity, String weather_pressure, String weather_updatedOn
-                            , String weather_iconText, String sun_rise) {
-                        cityField.setText(weather_city);
-                        updatedField.setText(weather_updatedOn);
-                        detailsField.setText(weather_description);
-                        currentTemperatureField.setText(weather_temperature);
-                        humidity_field.setText("Humidity: "+weather_humidity);
-//                pressure_field.setText("Pressure: "+weather_pressure);
-                weatherIcon.setText(Html.fromHtml(weather_iconText));
-                    }
-                });
-                asyncTask.execute(Double.toString(mLastLatitude)
-                        , Double.toString(mLastLongitude)); // asyncTask.execute("Latitude", "Longitude")
+                // begin program with first weather update
+                updateWeather();
             }
-
         }
     };
     @Override
@@ -174,5 +187,33 @@ public class MainActivity extends AppCompatActivity {
 // other 'case' lines to check for other
 // permissions this app might request
         }
+    }
+    /// Weather method for upte
+    public void updateWeather(){
+        ///
+        cityField = (TextView)findViewById(R.id.textCity);
+        updatedField = (TextView)findViewById(R.id.textViewUpdated);
+        detailsField = (TextView)findViewById(R.id.details_field);
+        currentTemperatureField = (TextView)findViewById(R.id.textTemp);
+        humidity_field = (TextView)findViewById(R.id.textHumid);
+//        TextView pressure_field = (TextView)findViewById(R.id.pressure_field);
+        weatherIcon = (TextView)findViewById(R.id.weather_icon);
+        weatherIcon.setTypeface(weatherFont);
+        Weather.placeIdTask asyncTask = new Weather.placeIdTask(new Weather.AsyncResponse() {
+            public void processFinish(String weather_city, String weather_description, String weather_temperature
+                    , String weather_humidity, String weather_pressure, String weather_updatedOn
+                    , String weather_iconText, String sun_rise) {
+                cityField.setText(weather_city);
+                updatedField.setText(weather_updatedOn);
+                detailsField.setText(weather_description);
+                currentTemperatureField.setText(weather_temperature);
+                humidity_field.setText("Humidity: "+weather_humidity);
+//                pressure_field.setText("Pressure: "+weather_pressure);
+                weatherIcon.setText(Html.fromHtml(weather_iconText));
+            }
+        });
+        asyncTask.execute(Double.toString(mLastLatitude)
+                , Double.toString(mLastLongitude)); // asyncTask.execute("Latitude", "Longitude")
+
     }
 }
